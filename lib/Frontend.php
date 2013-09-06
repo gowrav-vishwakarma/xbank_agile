@@ -18,6 +18,9 @@ class Frontend extends ApiFrontend {
                     'php'=>array(
                         'mvc',
                         'misc/lib',
+                        ),
+                    'template'=>array(
+                        'misc/templates'
                         )
                     ))
             ->setParent($this->pathfinder->base_location);

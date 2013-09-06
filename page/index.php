@@ -1,5 +1,5 @@
 <?php
 
-class page_index extends Page {
+class page_index extends page {
 	
 }
