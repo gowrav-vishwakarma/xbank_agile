@@ -1,6 +1,6 @@
 <?php
 
-class Model_Branch extends Model_Branch_Core {
+class Model_Closings extends Model_Closings_Core {
     function init(){
         parent::init();
     }

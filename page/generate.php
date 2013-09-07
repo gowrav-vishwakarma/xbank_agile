@@ -3,11 +3,15 @@
 class page_generate Extends Page {
     private $capitalize = true;
     private $postfix = "Core";
-    protected $skip_pages = false;
+    protected $skip_pages = true;
 
-    function init(){
-        parent::init();
+    function initMainPage(){
+        // parent::init();
         /* dirty. will clean up later, but working well */
+
+        $this->add('View_Error')->set('Disabled');
+        throw $this->exception('','StopInit');
+
         $this->add("Text")->set("Welcome. This is Model Creator Kit. It will use mysql database to create models for you");
         $c=$this->add('Columns');
         $f=$c->addColumn('50%')->add('Form');
@@ -58,9 +62,29 @@ class page_generate Extends Page {
             $tables[] = $row['Tables_in_xbank'];
         }
 
+        // $i=1;
+        $fields=array();
         foreach ($tables as $table){
-            $fields[$table] = $this->api->db->dsql()->expr("desc `$table`")->get();
+            $fields[$table] = array_merge($this->api->db->dsql()->expr("desc `$table`")->get(),(isset($fields[$table]))?$fields[$table]:array());
+            // if($i==1) print_r($fields);
+            // $i++;
+            foreach($fields[$table] as $field){
+                if ((array_search(substr(strtolower($field["Field"]), 0, -3), $tables) !== false) && (substr($field["Field"], -3) == "_id")){
+                    
+                    $fields[substr(strtolower($field["Field"]), 0, -3)][]=array(
+                            'Field'=>$this->getModelByTable($table)."__",
+                            'Related_to' => substr(strtolower($field["Field"]), 0, -3)."_id"
+                        );
+                }
+            }
+            // echo "<pre>";
+            // print_r($fields);
+            // echo "</pre>";
+            // throw new Exception("Error Processing Request", 1);
+            
         }
+
+
         return array($tables, $fields);
     }
     function generateModel($table, $fields, $tables){
@@ -73,21 +97,41 @@ class page_generate Extends Page {
             }
         }
         $v = $this->add("View", null, null, array("view/model"));
-        $v->template->set("php", "<?php");
+        $v->template->setHTML("php", "<?php");
         $v->template->set("class_name", "Model_" . $this->getModelByTable($table) ."_" . $this->postfix);
         $v->template->set("entity_code", $table);
         $v->template->set("extends", "Model_Table");
         $v->template->set("table_alias", "al_" . substr($table, 0, 2));
+        
+        $hol = $v->add("Lister", null, "hasone_lister", array("view/model", "hasone_lister"));
+        $one_relation_fields=array();
+        
         $l = $v->add("Lister", null, "field_lister", array("view/model", "field_lister"));
         $l->safe_html_output = false;
+        
+        $hml = $v->add("Lister", null, "hasmany_lister", array("view/model", "hasmany_lister"));
+        $many_relation_fields=array();
+
         foreach ($fields as $k => $field){
             if ($field["Field"] == "id"){
                 unset($fields[$k]);
                 continue;
             }
+
+            if(substr($field['Field'],-2)=="__"){
+                $many_relation_fields[$k]['Field'] = $field['Related_to'];
+                $many_relation_fields[$k]['Model'] = $this->getModelByTable(substr($field["Field"], 0, -2));
+                unset($fields[$k]);
+                continue;
+            }
+
             $fields[$k]["type"] = $this->resolveFieldType($field["Type"]);
-            if ((array_search(substr($field["Field"], 0, -4), $tables) !== false) && (substr($field["Field"], -3) == "_id")){
-                $fields[$k]["aux"] .= "->refModel(\"Model_" . $this->getModelByTable(substr($field["Field"], 0, -3)) ."\")";
+            if ((array_search(substr(strtolower($field["Field"]), 0, -3), $tables) !== false) && (substr($field["Field"], -3) == "_id")){
+                // echo "array_search(".substr(strtolower($field["Field"]), 0, -3).", \$tables) = " . array_search(substr(strtolower($field["Field"]), 0, -3), $tables) . " && substr(".$field["Field"].", -3) = ". substr($field["Field"], -3) . "<br/>";
+                $one_relation_fields[$k]['Field'] = $field['Field'];
+                $one_relation_fields[$k]['Model'] = $this->getModelByTable(substr($field["Field"], 0, -3));
+                unset($fields[$k]);
+                continue;
             } else {
                 $fields[$k]["aux"] .= "";
             }
@@ -95,6 +139,8 @@ class page_generate Extends Page {
                 $fields[$k]["aux"] .= "->system(true)->visible(false)";
             }
         }
+        $hml->setStaticSource($many_relation_fields);
+        $hol->setStaticSource($one_relation_fields);
         $l->setStaticSource($fields);
         $m = (string)$v->getHTML(true);
         $lbase = "lib/Model";
@@ -145,7 +191,7 @@ class page_generate Extends Page {
                 $v = $this->add("View", null, null, array("view/page"));
                 $v->template->set("model", $this->getModelByTable($table));
                 $v->template->set("pmodel", strtolower($table));
-                $v->template->set("php", "<?php");
+                $v->template->setHTML("php", "<?php");
 
                 $fid = fopen($pbase."/" . $page_name . ".php", "w");
                 fputs($fid, (string)$v->getHTML(true));
@@ -168,5 +214,14 @@ class page_generate Extends Page {
             return $p;
         }
         return ucfirst($p);
+    }
+
+
+    function page_test(){
+        echo "asdfsf";  
+    }
+
+    function page_test_test2(){
+        echo "34w34w";
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-class Model_Branch extends Model_Branch_Core {
+class Model_Jos_Users extends Model_Jos_Users_Core {
     function init(){
         parent::init();
     }

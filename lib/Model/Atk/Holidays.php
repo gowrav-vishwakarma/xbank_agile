@@ -1,6 +1,6 @@
 <?php
 
-class Model_Branch extends Model_Branch_Core {
+class Model_Atk_Holidays extends Model_Atk_Holidays_Core {
     function init(){
         parent::init();
     }

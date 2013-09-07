@@ -1,6 +1,6 @@
 <?php
 
-class Model_Branch extends Model_Branch_Core {
+class Model_Log extends Model_Log_Core {
     function init(){
         parent::init();
     }
