@@ -14,8 +14,23 @@ abstract class Model_Accounts extends Model_Accounts_Core {
         $this->getElement('LastCurrentInterestUpdatedAt')->defaultValue($this->api->helper->getNow());
         $this->getElement('created_at')->defaultValue($this->api->helper->getNow());
 
+        $this->getElement('agents_id')->destroy();
+        $this->hasOne('Agents','agents_id')->display(array('form'=>'autocomplete/Basic'));
+
+        $this->getElement("member_id")->display(array('form'=>'autocomplete/Basic'));
+        // $this->hasOne("Schemes_Core","schemes_id");
+        // $this->hasOne("Branch_Core","branch_id");
+        // $this->hasOne("Staff_Core","staff_id");
+        // $this->hasOne("Dealer_Core","dealer_id");
+
         $this->getElement("InterestToAccount")->destroy();
         $this->hasOne('Accounts_Core','InterestToAccount','AccountNumber');
+
+        $this->getElement("collector_id")->destroy();
+        $this->hasOne('Member_Core','collector_id','Name','Collector');
+
+        $this->getElement("CollectorAccountNumber")->destroy();
+        $this->hasOne('Accounts_SavingAndCurrent','CollectorAccountNumber','AccountNumber');
 
         $this->add("Controller_Validator");
         $this->addRule("AccountNumber", "Unique", array('Model_Accounts_Core'));

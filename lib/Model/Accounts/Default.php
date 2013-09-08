@@ -8,8 +8,12 @@ class Model_Accounts_Default extends Model_Accounts{
 		$this->hasOne('Schemes_DDS','schemes_id')->caption('Accout Under');
 
 		$this->getElement('agents_id')->destroy();
-		$this->hasOne('Agents','agents_id')
-;
+		$this->hasOne('Agents','agents_id');
+
+		$account_scheme = $this->join('schemes','schemes_id');
+		$account_scheme->addField('SchemeType');
+		$this->addCondition('SchemeType','Default');
+
 	}
 
 
