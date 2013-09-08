@@ -9,8 +9,8 @@ class page_generate Extends Page {
         // parent::init();
         /* dirty. will clean up later, but working well */
 
-        $this->add('View_Error')->set('Disabled');
-        throw $this->exception('','StopInit');
+        // $this->add('View_Error')->set('Disabled');
+        // throw $this->exception('','StopInit');
 
         $this->add("Text")->set("Welcome. This is Model Creator Kit. It will use mysql database to create models for you");
         $c=$this->add('Columns');
@@ -100,7 +100,7 @@ class page_generate Extends Page {
         $v->template->setHTML("php", "<?php");
         $v->template->set("class_name", "Model_" . $this->getModelByTable($table) ."_" . $this->postfix);
         $v->template->set("entity_code", $table);
-        $v->template->set("extends", "Model_Table");
+        $v->template->set("extends", "XModel");
         $v->template->set("table_alias", "al_" . substr($table, 0, 2));
         
         $hol = $v->add("Lister", null, "hasone_lister", array("view/model", "hasone_lister"));
@@ -120,7 +120,8 @@ class page_generate Extends Page {
 
             if(substr($field['Field'],-2)=="__"){
                 $many_relation_fields[$k]['Field'] = $field['Related_to'];
-                $many_relation_fields[$k]['Model'] = $this->getModelByTable(substr($field["Field"], 0, -2));
+                $many_relation_fields[$k]['Model'] = $this->getModelByTable(substr($field["Field"], 0, -2)). "_Core";
+                $many_relation_fields[$k]['RelationName'] = $this->getModelByTable(substr($field["Field"], 0, -2));
                 unset($fields[$k]);
                 continue;
             }
@@ -129,7 +130,8 @@ class page_generate Extends Page {
             if ((array_search(substr(strtolower($field["Field"]), 0, -3), $tables) !== false) && (substr($field["Field"], -3) == "_id")){
                 // echo "array_search(".substr(strtolower($field["Field"]), 0, -3).", \$tables) = " . array_search(substr(strtolower($field["Field"]), 0, -3), $tables) . " && substr(".$field["Field"].", -3) = ". substr($field["Field"], -3) . "<br/>";
                 $one_relation_fields[$k]['Field'] = $field['Field'];
-                $one_relation_fields[$k]['Model'] = $this->getModelByTable(substr($field["Field"], 0, -3));
+                $one_relation_fields[$k]['Model'] = $this->getModelByTable(substr($field["Field"], 0, -3))."_Core";
+                $one_relation_fields[$k]['RelationName'] = $this->getModelByTable(substr($field["Field"], 0, -3));
                 unset($fields[$k]);
                 continue;
             } else {
@@ -216,12 +218,4 @@ class page_generate Extends Page {
         return ucfirst($p);
     }
 
-
-    function page_test(){
-        echo "asdfsf";  
-    }
-
-    function page_test_test2(){
-        echo "34w34w";
-    }
 }

@@ -4,7 +4,7 @@
  * ANY CHANGES TO THIS FILE WILL BE LOST. PLEASE, EDIT NON-CORE MODEL WHICH IS EXTENDED BY THIS FILE
  * OR ADJUST DATABASE IF YOU NEED CHANGES TO THE FIELDS BELOW
  **/
-class Model_Jos_Users_Core extends Model_Table {
+class Model_Jos_Users_Core extends XModel {
     public $table = "jos_users";
 //  public $table_alias = "al_jo";
     

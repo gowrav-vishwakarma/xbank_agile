@@ -4,7 +4,7 @@
  * ANY CHANGES TO THIS FILE WILL BE LOST. PLEASE, EDIT NON-CORE MODEL WHICH IS EXTENDED BY THIS FILE
  * OR ADJUST DATABASE IF YOU NEED CHANGES TO THE FIELDS BELOW
  **/
-class Model_Schemes_Core extends Model_Table {
+class Model_Schemes_Core extends XModel {
     public $table = "schemes";
 //  public $table_alias = "al_sc";
     
@@ -12,8 +12,8 @@ class Model_Schemes_Core extends Model_Table {
         parent::init();
         
         //HAS ONE BLOCK
-        $this->hasOne("Branch","branch_id");
-        $this->hasOne("Balance_Sheet","balance_sheet_id");
+        $this->hasOne("Branch_Core","branch_id");
+        $this->hasOne("Balance_Sheet_Core","balance_sheet_id");
         
 
 		//FIELDS
@@ -51,8 +51,8 @@ class Model_Schemes_Core extends Model_Table {
         
 
         //HAS MANY BLOCK
-		$this->hasMany("Accounts","schemes_id");
-        $this->hasMany("Events","schemes_id");
+		$this->hasMany("Accounts_Core","schemes_id",null,"Accounts");
+        $this->hasMany("Events_Core","schemes_id",null,"Events");
         		
     }
 }

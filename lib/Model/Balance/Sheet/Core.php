@@ -4,7 +4,7 @@
  * ANY CHANGES TO THIS FILE WILL BE LOST. PLEASE, EDIT NON-CORE MODEL WHICH IS EXTENDED BY THIS FILE
  * OR ADJUST DATABASE IF YOU NEED CHANGES TO THE FIELDS BELOW
  **/
-class Model_Balance_Sheet_Core extends Model_Table {
+class Model_Balance_Sheet_Core extends XModel {
     public $table = "balance_sheet";
 //  public $table_alias = "al_ba";
     
@@ -24,7 +24,7 @@ class Model_Balance_Sheet_Core extends Model_Table {
         
 
         //HAS MANY BLOCK
-		$this->hasMany("Schemes","balance_sheet_id");
+		$this->hasMany("Schemes_Core","balance_sheet_id",null,"Schemes");
         		
     }
 }

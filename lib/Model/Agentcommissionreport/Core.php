@@ -4,7 +4,7 @@
  * ANY CHANGES TO THIS FILE WILL BE LOST. PLEASE, EDIT NON-CORE MODEL WHICH IS EXTENDED BY THIS FILE
  * OR ADJUST DATABASE IF YOU NEED CHANGES TO THE FIELDS BELOW
  **/
-class Model_Agentcommissionreport_Core extends Model_Table {
+class Model_Agentcommissionreport_Core extends XModel {
     public $table = "agentcommissionreport";
 //  public $table_alias = "al_ag";
     
@@ -12,8 +12,8 @@ class Model_Agentcommissionreport_Core extends Model_Table {
         parent::init();
         
         //HAS ONE BLOCK
-        $this->hasOne("Agents","agents_id");
-        $this->hasOne("Accounts","accounts_id");
+        $this->hasOne("Agents_Core","agents_id");
+        $this->hasOne("Accounts_Core","accounts_id");
         
 
 		//FIELDS

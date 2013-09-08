@@ -4,7 +4,7 @@
  * ANY CHANGES TO THIS FILE WILL BE LOST. PLEASE, EDIT NON-CORE MODEL WHICH IS EXTENDED BY THIS FILE
  * OR ADJUST DATABASE IF YOU NEED CHANGES TO THE FIELDS BELOW
  **/
-class Model_Stock_Consume_Core extends Model_Table {
+class Model_Stock_Consume_Core extends XModel {
     public $table = "stock_consume";
 //  public $table_alias = "al_st";
     
@@ -12,7 +12,7 @@ class Model_Stock_Consume_Core extends Model_Table {
         parent::init();
         
         //HAS ONE BLOCK
-        $this->hasOne("Branch","branch_id");
+        $this->hasOne("Branch_Core","branch_id");
         
 
 		//FIELDS

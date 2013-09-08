@@ -4,7 +4,7 @@
  * ANY CHANGES TO THIS FILE WILL BE LOST. PLEASE, EDIT NON-CORE MODEL WHICH IS EXTENDED BY THIS FILE
  * OR ADJUST DATABASE IF YOU NEED CHANGES TO THE FIELDS BELOW
  **/
-class Model_Events_Core extends Model_Table {
+class Model_Events_Core extends XModel {
     public $table = "events";
 //  public $table_alias = "al_ev";
     
@@ -12,7 +12,7 @@ class Model_Events_Core extends Model_Table {
         parent::init();
         
         //HAS ONE BLOCK
-        $this->hasOne("Schemes","schemes_id");
+        $this->hasOne("Schemes_Core","schemes_id");
         
 
 		//FIELDS

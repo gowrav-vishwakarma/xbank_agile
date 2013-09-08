@@ -4,7 +4,7 @@
  * ANY CHANGES TO THIS FILE WILL BE LOST. PLEASE, EDIT NON-CORE MODEL WHICH IS EXTENDED BY THIS FILE
  * OR ADJUST DATABASE IF YOU NEED CHANGES TO THE FIELDS BELOW
  **/
-class Model_Access_System_Core extends Model_Table {
+class Model_Access_System_Core extends XModel {
     public $table = "access_system";
 //  public $table_alias = "al_ac";
     
@@ -12,7 +12,7 @@ class Model_Access_System_Core extends Model_Table {
         parent::init();
         
         //HAS ONE BLOCK
-        $this->hasOne("Staff","staff_id");
+        $this->hasOne("Staff_Core","staff_id");
         
 
 		//FIELDS

@@ -4,7 +4,7 @@
  * ANY CHANGES TO THIS FILE WILL BE LOST. PLEASE, EDIT NON-CORE MODEL WHICH IS EXTENDED BY THIS FILE
  * OR ADJUST DATABASE IF YOU NEED CHANGES TO THE FIELDS BELOW
  **/
-class Model_Accounts_Core extends Model_Table {
+class Model_Accounts_Core extends XModel {
     public $table = "accounts";
 //  public $table_alias = "al_ac";
     
@@ -12,12 +12,12 @@ class Model_Accounts_Core extends Model_Table {
         parent::init();
         
         //HAS ONE BLOCK
-        $this->hasOne("Agents","agents_id");
-        $this->hasOne("Member","member_id");
-        $this->hasOne("Schemes","schemes_id");
-        $this->hasOne("Branch","branch_id");
-        $this->hasOne("Staff","staff_id");
-        $this->hasOne("Dealer","dealer_id");
+        $this->hasOne("Agents_Core","agents_id");
+        $this->hasOne("Member_Core","member_id");
+        $this->hasOne("Schemes_Core","schemes_id");
+        $this->hasOne("Branch_Core","branch_id");
+        $this->hasOne("Staff_Core","staff_id");
+        $this->hasOne("Dealer_Core","dealer_id");
         
 
 		//FIELDS
@@ -52,12 +52,12 @@ class Model_Accounts_Core extends Model_Table {
         
 
         //HAS MANY BLOCK
-		$this->hasMany("Agentcommissionreport","accounts_id");
-        $this->hasMany("Documents_Submitted","accounts_id");
-        $this->hasMany("Jointmembers","accounts_id");
-        $this->hasMany("Log","accounts_id");
-        $this->hasMany("Premiums","accounts_id");
-        $this->hasMany("Transactions","accounts_id");
+		$this->hasMany("Agentcommissionreport_Core","accounts_id",null,"Agentcommissionreport");
+        $this->hasMany("Documents_Submitted_Core","accounts_id",null,"Documents_Submitted");
+        $this->hasMany("Jointmembers_Core","accounts_id",null,"Jointmembers");
+        $this->hasMany("Log_Core","accounts_id",null,"Log");
+        $this->hasMany("Premiums_Core","accounts_id",null,"Premiums");
+        $this->hasMany("Transactions_Core","accounts_id",null,"Transactions");
         		
     }
 }

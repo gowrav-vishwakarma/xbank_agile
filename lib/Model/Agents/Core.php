@@ -4,7 +4,7 @@
  * ANY CHANGES TO THIS FILE WILL BE LOST. PLEASE, EDIT NON-CORE MODEL WHICH IS EXTENDED BY THIS FILE
  * OR ADJUST DATABASE IF YOU NEED CHANGES TO THE FIELDS BELOW
  **/
-class Model_Agents_Core extends Model_Table {
+class Model_Agents_Core extends XModel {
     public $table = "agents";
 //  public $table_alias = "al_ag";
     
@@ -12,7 +12,7 @@ class Model_Agents_Core extends Model_Table {
         parent::init();
         
         //HAS ONE BLOCK
-        $this->hasOne("Member","member_id");
+        $this->hasOne("Member_Core","member_id");
         
 
 		//FIELDS
@@ -59,8 +59,8 @@ class Model_Agents_Core extends Model_Table {
         
 
         //HAS MANY BLOCK
-		$this->hasMany("Accounts","agents_id");
-        $this->hasMany("Agentcommissionreport","agents_id");
+		$this->hasMany("Accounts_Core","agents_id",null,"Accounts");
+        $this->hasMany("Agentcommissionreport_Core","agents_id",null,"Agentcommissionreport");
         		
     }
 }

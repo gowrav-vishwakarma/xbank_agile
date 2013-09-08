@@ -7,6 +7,7 @@ class Frontend extends ApiFrontend {
     public $current_company = null;
     public $current_branch = null;
     public $helper=null;
+    public $last_page=null;
     function init(){
         parent::init();
         // Keep this if you are going to use database on all pages
@@ -39,11 +40,14 @@ class Frontend extends ApiFrontend {
             ->_load('atk4_univ_basic')
             ->_load('ui.atk4_notify')
             ;
-        $m=$this->add('Menu_jUI',null,'Menu');
-            $m->addMenuItem('index','home');
-            $m->addMenuItem('index','home');
-            $m->addMenuItem('index','home')
-        ;
+
+        $this->helper=$this->add('Controller_Helper');
+
+        $auth = $this->add('BasicAuth');
+        $auth->setModel('Staff','StaffID','Password');
+        $auth->check();
+        
+        $this->menu=$this->add('MenuManager',null,'Menu');
     }
 
 }

@@ -4,7 +4,7 @@
  * ANY CHANGES TO THIS FILE WILL BE LOST. PLEASE, EDIT NON-CORE MODEL WHICH IS EXTENDED BY THIS FILE
  * OR ADJUST DATABASE IF YOU NEED CHANGES TO THE FIELDS BELOW
  **/
-class Model_Transaction_Type_Core extends Model_Table {
+class Model_Transaction_Type_Core extends XModel {
     public $table = "transaction_type";
 //  public $table_alias = "al_tr";
     
@@ -22,7 +22,7 @@ class Model_Transaction_Type_Core extends Model_Table {
         
 
         //HAS MANY BLOCK
-		$this->hasMany("Transactions","transaction_type_id");
+		$this->hasMany("Transactions_Core","transaction_type_id",null,"Transactions");
         		
     }
 }

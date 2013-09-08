@@ -4,7 +4,7 @@
  * ANY CHANGES TO THIS FILE WILL BE LOST. PLEASE, EDIT NON-CORE MODEL WHICH IS EXTENDED BY THIS FILE
  * OR ADJUST DATABASE IF YOU NEED CHANGES TO THE FIELDS BELOW
  **/
-class Model_Log_Core extends Model_Table {
+class Model_Log_Core extends XModel {
     public $table = "log";
 //  public $table_alias = "al_lo";
     
@@ -12,9 +12,9 @@ class Model_Log_Core extends Model_Table {
         parent::init();
         
         //HAS ONE BLOCK
-        $this->hasOne("Accounts","accounts_id");
-        $this->hasOne("Branch","branch_id");
-        $this->hasOne("Staff","staff_id");
+        $this->hasOne("Accounts_Core","accounts_id");
+        $this->hasOne("Branch_Core","branch_id");
+        $this->hasOne("Staff_Core","staff_id");
         
 
 		//FIELDS

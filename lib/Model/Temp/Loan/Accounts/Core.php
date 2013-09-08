@@ -4,7 +4,7 @@
  * ANY CHANGES TO THIS FILE WILL BE LOST. PLEASE, EDIT NON-CORE MODEL WHICH IS EXTENDED BY THIS FILE
  * OR ADJUST DATABASE IF YOU NEED CHANGES TO THE FIELDS BELOW
  **/
-class Model_Temp_Loan_Accounts_Core extends Model_Table {
+class Model_Temp_Loan_Accounts_Core extends XModel {
     public $table = "temp_loan_accounts";
 //  public $table_alias = "al_te";
     

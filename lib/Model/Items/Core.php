@@ -4,7 +4,7 @@
  * ANY CHANGES TO THIS FILE WILL BE LOST. PLEASE, EDIT NON-CORE MODEL WHICH IS EXTENDED BY THIS FILE
  * OR ADJUST DATABASE IF YOU NEED CHANGES TO THE FIELDS BELOW
  **/
-class Model_Items_Core extends Model_Table {
+class Model_Items_Core extends XModel {
     public $table = "items";
 //  public $table_alias = "al_it";
     
@@ -12,7 +12,7 @@ class Model_Items_Core extends Model_Table {
         parent::init();
         
         //HAS ONE BLOCK
-        $this->hasOne("Category","category_id");
+        $this->hasOne("Category_Core","category_id");
         
 
 		//FIELDS
@@ -22,7 +22,7 @@ class Model_Items_Core extends Model_Table {
         
 
         //HAS MANY BLOCK
-		$this->hasMany("Stock_Log","items_id");
+		$this->hasMany("Stock_Log_Core","items_id",null,"Stock_Log");
         		
     }
 }

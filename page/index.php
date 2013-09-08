@@ -4,6 +4,8 @@ class page_index extends Page {
 	function init(){
 		parent::init();
 
+		$this->api->menu->generate(array('index'=>'Home','scheme_manage'=>'Schemes'),null,'Home');
+
 		// $r = $this->api->db->dsql()->expr('show tables')->get();
   //       foreach ($r as $row){
   //           $table_name = $row['Tables_in_xbank'];

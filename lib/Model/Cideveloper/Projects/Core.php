@@ -4,7 +4,7 @@
  * ANY CHANGES TO THIS FILE WILL BE LOST. PLEASE, EDIT NON-CORE MODEL WHICH IS EXTENDED BY THIS FILE
  * OR ADJUST DATABASE IF YOU NEED CHANGES TO THE FIELDS BELOW
  **/
-class Model_Cideveloper_Projects_Core extends Model_Table {
+class Model_Cideveloper_Projects_Core extends XModel {
     public $table = "cideveloper_projects";
 //  public $table_alias = "al_ci";
     

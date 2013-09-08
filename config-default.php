@@ -35,6 +35,8 @@ $config['url_prefix']='?page=';
 define('SP',							' ');
 define('SAVING_ACCOUNT_SCHEME',			'Saving Account');
 define('BRANCH_TDS_ACCOUNT',                    'TDS');
+define('DEPOSITS_LIABILITIES',				'Deposits - Liabilities');
+define('DEPOSITS_LIABILITIES_ID',				1);
 define('LIABILITIES_HEAD',				'Liabilities');
 define('CASH_ACCOUNT_SCHEME',           'Cash Account');
 define('ASSETS_HEAD',                   'Assets');
@@ -109,8 +111,8 @@ define('TRA_RECURRING_ACCOUNT_COLLECTION_CHARGES_DEPOSIT',  'RecurringAccountCol
 //define('CURRENT_BRANCH_CASH_ACCOUNT',	"Branch::getDefaultBranch()->Code.SP.CASH_ACCOUNT_SCHEME'");
 //define('CURRENT_BRANCH_CASH_ACCOUNT',	'Doctrine::getTable("Accounts")->findOneByBranch_idAndAccountnumber(Branch::getDefaultBranch()->id,Branch::getDefaultBranch()->Code.SP.CASH_ACCOUNT_SCHEME);')
 
-// define('ACCOUNT_TYPES',                         "DDS");
-define('ACCOUNT_TYPES',                         "Loan,CC,FixedAndMis,Default,SavingAndCurrent,Recurring,DDS");
+define('ACCOUNT_TYPES',                         "DDS");
+// define('ACCOUNT_TYPES',                         "Loan,CC,FixedAndMis,Default,SavingAndCurrent,Recurring,DDS");
 define('ACCOUNT_TYPE_DEFAULT',                  "Default");
 define('ACCOUNT_TYPE_BANK',                     "SavingAndCurrent");
 define('ACCOUNT_TYPE_FIXED',                    "FixedAndMis");

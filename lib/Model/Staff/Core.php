@@ -4,7 +4,7 @@
  * ANY CHANGES TO THIS FILE WILL BE LOST. PLEASE, EDIT NON-CORE MODEL WHICH IS EXTENDED BY THIS FILE
  * OR ADJUST DATABASE IF YOU NEED CHANGES TO THE FIELDS BELOW
  **/
-class Model_Staff_Core extends Model_Table {
+class Model_Staff_Core extends XModel {
     public $table = "staff";
 //  public $table_alias = "al_st";
     
@@ -12,7 +12,7 @@ class Model_Staff_Core extends Model_Table {
         parent::init();
         
         //HAS ONE BLOCK
-        $this->hasOne("Branch","branch_id");
+        $this->hasOne("Branch_Core","branch_id");
         
 
 		//FIELDS
@@ -23,14 +23,14 @@ class Model_Staff_Core extends Model_Table {
         
 
         //HAS MANY BLOCK
-		$this->hasMany("Access_System","staff_id");
-        $this->hasMany("Accounts","staff_id");
-        $this->hasMany("Log","staff_id");
-        $this->hasMany("Member","staff_id");
-        $this->hasMany("Staff_Attendance","staff_id");
-        $this->hasMany("Staff_Details","staff_id");
-        $this->hasMany("Staff_Payments","staff_id");
-        $this->hasMany("Transactions","staff_id");
+		$this->hasMany("Access_System_Core","staff_id",null,"Access_System");
+        $this->hasMany("Accounts_Core","staff_id",null,"Accounts");
+        $this->hasMany("Log_Core","staff_id",null,"Log");
+        $this->hasMany("Member_Core","staff_id",null,"Member");
+        $this->hasMany("Staff_Attendance_Core","staff_id",null,"Staff_Attendance");
+        $this->hasMany("Staff_Details_Core","staff_id",null,"Staff_Details");
+        $this->hasMany("Staff_Payments_Core","staff_id",null,"Staff_Payments");
+        $this->hasMany("Transactions_Core","staff_id",null,"Transactions");
         		
     }
 }
