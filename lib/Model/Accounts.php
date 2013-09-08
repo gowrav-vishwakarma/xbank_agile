@@ -17,6 +17,12 @@ abstract class Model_Accounts extends Model_Accounts_Core {
         $this->getElement("InterestToAccount")->destroy();
         $this->hasOne('Accounts_Core','InterestToAccount','AccountNumber');
 
+        $this->getElement("collector_id")->destroy();
+        $this->hasOne('Member_Core','collector_id','Name','Collector');
+
+        $this->getElement("CollectorAccountNumber")->destroy();
+        $this->hasOne('Accounts_SavingAndCurrent','CollectorAccountNumber','AccountNumber');
+
         $this->add("Controller_Validator");
         $this->addRule("AccountNumber", "Unique", array('Model_Accounts_Core'));
 

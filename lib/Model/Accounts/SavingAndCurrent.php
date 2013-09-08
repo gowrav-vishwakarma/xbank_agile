@@ -15,6 +15,10 @@ class Model_Accounts_SavingAndCurrent extends Model_Accounts{
 		$this->getElement('RdAmount')->destroy();
 		$this->addField('initial_opening_amount','RdAmount');
 
+		$account_scheme = $this->join('schemes','schemes_id');
+		$account_scheme->addField('SchemeType');
+		$this->addCondition('SchemeType','SavingAndCurrent');
+
 
 	}
 
