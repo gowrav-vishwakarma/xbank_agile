@@ -126,8 +126,9 @@ abstract class Model_Schemes extends Model_Schemes_Core {
             
             $branch = $this->add('Model_Branch');
             foreach ($branch as $junk) {
-                $account['schemes_id'] = $scheme->id;
-                $account['branch_id'] = $branch->id;
+                $ac = $this->add('Model_Accounts_Core');
+                $ac['schemes_id'] = $scheme->id;
+                $ac['branch_id'] = $branch->id;
                 $ac['AccountNumber'] = $branch['Code'] . SP . $d_account . SP . $this['Name'];
                 $ac['InterestToAccount'] = 0;
                 $ac['member_id'] = $branch->getDefaultMember()->id;

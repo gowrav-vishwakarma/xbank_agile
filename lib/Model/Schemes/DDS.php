@@ -2,7 +2,7 @@
 
 class Model_Schemes_DDS extends Model_Schemes {
 
-    protected $default_accounts = array(
+    public $default_accounts = array(
                                 "Indirect Expenses"=>"Commission Paid On",
                                 "Indirect Expenses"=>"Interest Paid On",
                                 "Indirect Expenses"=>"Collection Charges Paid On",

@@ -2,6 +2,10 @@
 
 class Model_Accounts_Recurring extends Model_Accounts{
 
+	function newAccountForm(&$owner){}
+    function editAccountForm(&$owner){}
+
+	function beforeSave(){}
 	function beforeDelete(){}
 	function beforeDeleteAll(){}
 	function beforeInsert(){}

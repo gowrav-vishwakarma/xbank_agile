@@ -4,7 +4,7 @@ class page_index extends Page {
 	function init(){
 		parent::init();
 
-		$this->api->menu->generate(array('index'=>'Home','scheme_manage'=>'Schemes'),null,'Home');
+		$this->api->menu->generate(array('index'=>'Home','scheme_manage'=>'Schemes','account_manage'=>'Accounts'),null,'Home');
 
 		// $r = $this->api->db->dsql()->expr('show tables')->get();
   //       foreach ($r as $row){
