@@ -7,8 +7,6 @@ class Model_Accounts_CC extends Model_Accounts{
 		$this->getElement('schemes_id')->destroy();
 		$this->hasOne('Schemes_DDS','schemes_id')->caption('Accout Under');
 
-		$this->getElement('agents_id')->destroy();
-		$this->hasOne('Agents','agents_id');
 
 		// $this->getElement('Nominee')->destroy();
 		// $this->addField('guarenter','Nominee');

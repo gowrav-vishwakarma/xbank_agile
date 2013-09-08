@@ -7,9 +7,6 @@ class Model_Accounts_DDS extends Model_Accounts{
 		$this->getElement('schemes_id')->destroy();
 		$this->hasOne('Schemes_DDS','schemes_id')->caption('Account Under');
 
-		$this->getElement('agents_id')->destroy();
-		$this->hasOne('Agents','agents_id');
-
 		$this->getElement('AccountDisplayName')->caption("Account Name");
 
 		$this->getElement('RdAmount')->destroy();
