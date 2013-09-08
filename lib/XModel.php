@@ -2,6 +2,7 @@
 
 
 class XModel extends SQL_Model{
+	public $title_field = 'Name';
 
 	function validateUnique($field,$val,$model){
         //Unique Name Check

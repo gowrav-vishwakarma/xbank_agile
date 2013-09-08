@@ -2,6 +2,45 @@
 
 class Model_Accounts_Default extends Model_Accounts{
 
+	function init(){
+		parent::init();
+		$this->getElement('schemes_id')->destroy();
+		$this->hasOne('Schemes_DDS','schemes_id')->caption('Accout Under');
+
+		$this->getElement('agents_id')->destroy();
+		$this->hasOne('Agents','agents_id')
+;
+	}
+
+
+	function newAccountForm(&$owner){
+
+		$owner->add('H3')->set('Add New Default Account');
+		$form = $owner->add('Form');
+        $form->addClass('stacked atk-row');
+        $form->template->trySet('fieldset','span6');
+        $form->setModel('Accounts_Default',array('AccountNumber','member_id','schemes_id','agents_id','ActiveStatus'));
+        
+
+        $form->add('Order')->move($form->addSeparator('span6'),'after','schemes_id')->now();
+        // $i=1;
+        // foreach ($doc=$this->add('Model_Documents')->addCondition('CCAccount',true) as $junk) {
+        // 	$form->addField('checkbox','doc_selected_'.$i,$doc['Name']);
+        // 	$form->addField('line','description_for'.$i,"Description For");
+        // }
+        $form->addSubmit('Create New Account');
+
+        if($form->isSubmitted()){
+            // $form->update();
+
+            // $form->js(null,$form->js()->reload())->univ()->successMessage("New Account Created")->execute();
+        }
+
+
+	}
+    function editAccountForm(&$owner){}
+
+	function beforeSave(){}
 	function beforeDelete(){}
 	function beforeDeleteAll(){}
 	function beforeInsert(){}
@@ -14,5 +53,5 @@ class Model_Accounts_Default extends Model_Accounts{
     function forclose(){}
     function mature(){}
 
-
+    
 }

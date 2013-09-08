@@ -1,12 +1,21 @@
 <?php
 
-abstract class Model_Accounts extends Model_AbstractAccounts {
+abstract class Model_Accounts extends Model_Accounts_Core {
 
     function init(){
         parent::init();
 
         $this->getElement('InterestToAccount')->defaultValue(0);
-        $this->getElement('ModeOfOperation')->defaultValue('Self');
+        $this->getElement('LoanInsurranceDate')->type('date');
+        $this->getElement('ModeOfOperation')->enum(array('Self','Joint','AnyOne','Other'))->defaultValue('Self');
+        $this->getElement('staff_id')->defaultValue($this->api->auth->model->id);
+        $this->getElement('branch_id')->defaultValue($this->api->auth->model['branch_id']);
+        $this->getElement('DefaultAC')->defaultValue(0);
+        $this->getElement('LastCurrentInterestUpdatedAt')->defaultValue($this->api->helper->getNow());
+        $this->getElement('created_at')->defaultValue($this->api->helper->getNow());
+
+        $this->getElement("InterestToAccount")->destroy();
+        $this->hasOne('Accounts_Core','InterestToAccount','AccountNumber');
 
         $this->add("Controller_Validator");
         $this->addRule("AccountNumber", "Unique", array('Model_Accounts_Core'));
@@ -33,6 +42,8 @@ abstract class Model_Accounts extends Model_AbstractAccounts {
         $this->addHook('afterModify',$this);
     }
 
+    abstract function newAccountForm(&$owner);
+    abstract function editAccountForm(&$owner);
     abstract function deposit($amount);
     abstract function withdraw($amount);
     abstract function forclose();
