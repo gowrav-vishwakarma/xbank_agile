@@ -6,7 +6,7 @@ class Model_Accounts_Loan extends Model_Accounts{
 		parent::init();
 
 		$this->getElement('schemes_id')->destroy();
-		$this->hasOne('Schemes_DDS','schemes_id');
+		$this->hasOne('Schemes_DDS','schemes_id')->caption('Accout Under');
 
 		$this->getElement('agents_id')->destroy();
 		$this->hasOne('Agents','agents_id');

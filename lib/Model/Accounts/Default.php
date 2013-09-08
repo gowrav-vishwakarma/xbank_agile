@@ -5,7 +5,7 @@ class Model_Accounts_Default extends Model_Accounts{
 	function init(){
 		parent::init();
 		$this->getElement('schemes_id')->destroy();
-		$this->hasOne('Schemes_DDS','schemes_id');
+		$this->hasOne('Schemes_DDS','schemes_id')->caption('Accout Under');
 
 		$this->getElement('agents_id')->destroy();
 		$this->hasOne('Agents','agents_id')

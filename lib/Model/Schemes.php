@@ -14,29 +14,31 @@ abstract class Model_Schemes extends Model_Schemes_Core {
         $this->getElement('branch_id')->defaultValue($this->api->auth->model['branch_id']);
 
         $this->getElement("Name")->mandatory('Scheme Name must be provided');
-        $this->getElement('MinLimit')->type('int')->caption('Minimum Balance/ Ammount');
-        $this->getElement('MaxLimit')->type('int')->caption('Maximum Balance/ Ammount');
-        $this->getElement('Interest')->type('int')->caption('Interest In Percentage');
+        $this->getElement('MinLimit')->type('int')->caption('Minimum Balance/ Ammount')->defaultValue(0);
+        $this->getElement('MaxLimit')->type('int')->caption('Maximum Balance/ Ammount')->defaultValue(-1)->hint('Use -1 to disable limit');
+        $this->getElement('Interest')->type('int')->caption('Interest In Percentage')->defaultValue('0');
         
-        // $this->getElement("InterestMode")->type("string");
-        // $this->getElement("InterestRateMode")->type("string");
+        $this->getElement("InterestMode")->type("string")->defaultValue(null);
+        $this->getElement("InterestRateMode")->type("string")->defaultValue('0');
         // $this->getElement("LoanType")->type("boolean");
-        $this->getElement('AccountOpenningCommission')->caption('Account Commission in %')->hint('Opening Commission, First Premium, Second Premium, ...');
-        // $this->getElement("Commission")->type("string");
+        $this->getElement('AccountOpenningCommission')->caption('Account Commission in %')->hint('Opening Commission, First Premium, Second Premium, ...')->defaultValue('0');
+        $this->getElement("Commission")->type("string")->defaultValue(null);
         $this->getElement("ActiveStatus")->defaultValue(true);
         $this->getElement("created_at")->defaultValue($this->api->helper->getNow('Y-m-d H:i:s'));
         // $this->getElement("updated_at")->type("datetime");
-        // $this->getElement("ProcessingFees")->type("string");
-        // $this->getElement("PostingMode")->type("string");
-        // $this->getElement("PremiumMode")->type("string");
-        // $this->getElement("CreateDefaultAccount")->type("boolean");
+        $this->getElement("ProcessingFees")->type("string")->defaultValue(null);
+        $this->getElement("PostingMode")->type("string")->defaultValue('');
+        $this->getElement("PremiumMode")
+            ->setValueList(array_flip(array('Not Applicable' => '-1', 'Yearly' => 'Y', 'Half Yearly' => 'HF', 'Quarterly' => 'Q', 'Monthly' => 'M', 'Weekly' => 'W', 'Daily' => 'D')))
+            ->defaultValue(null);
+        $this->getElement("CreateDefaultAccount")->type("boolean")->defaultValue(0);
         // $this->getElement("SchemeType")->type("string");
         // $this->getElement("SchemeGroup")->type("string");
         // $this->getElement("InterestToAnotherAccount")->type("boolean");
         // $this->getElement("NumberOfPremiums")->type("int");
         $this->getElement('MaturityPeriod')->caption('Period of Maturity for FD, MIS, RD, DDS(in months)');
         // $this->getElement("InterestToAnotherAccountPercent")->type("string");
-        // $this->getElement("isDepriciable")->type("string");
+        $this->getElement("isDepriciable")->type("boolean");
         // $this->getElement("DepriciationPercentBeforeSep")->type("string");
         // $this->getElement("DepriciationPercentAfterSep")->type("string");
         // $this->getElement("ProcessingFeesinPercent")->type("boolean");
@@ -151,6 +153,10 @@ abstract class Model_Schemes extends Model_Schemes_Core {
         if($this->dirty['MaturityPeriod']){
             if($account_count=$this->ref('Accounts')->count()->getOne() > 0)
                 throw $this->raiseError('MaturityPeriod',"$account_count accounts found, cannot change Maturity Period Now");
+        }
+        if($this->dirty['NumberOfPremiums']){
+            if($account_count=$this->ref('Accounts')->count()->getOne() > 0)
+                throw $this->raiseError('NumberOfPremiums',"$account_count accounts found, cannot change Number Of Premiums Now");
         }
     }
 

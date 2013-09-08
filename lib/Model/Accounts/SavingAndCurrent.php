@@ -5,7 +5,7 @@ class Model_Accounts_SavingAndCurrent extends Model_Accounts{
 	function init(){
 		parent::init();
 		$this->getElement('schemes_id')->destroy();
-		$this->hasOne('Schemes_DDS','schemes_id');
+		$this->hasOne('Schemes_DDS','schemes_id')->caption('Account Under');
 
 		$this->getElement('agents_id')->destroy();
 		$this->hasOne('Agents','agents_id');
@@ -29,7 +29,7 @@ class Model_Accounts_SavingAndCurrent extends Model_Accounts{
         $form->addField('line','member_id_2')->addComment('TODO LookupDB');
         $form->addField('line','member_id_3')->addComment('TODO LookupDB');
         $form->add('Order')
-        		->move($form->addSeparator('span6'),'after','schemes_id')
+        		->move($form->addSeparator('span6'),'after','ModeOfOperation')
         		->now();
         
         $form->addSubmit('Create New Account');
