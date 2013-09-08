@@ -1,14 +1,14 @@
 <?php
 
-class Model_Schemes_Recurring extends Model_Schemes {
+class Model_Schemes_FixedAndMis extends Model_Schemes {
 
     protected $default_accounts = array(
                                 "Indirect Expenses"=>"Commission Paid On",
                                 "Indirect Expenses"=>"Interest Paid On",
-                                "Indirect Expenses"=>"Collection Charges Paid On",
+                                // "Indirect Expenses"=>"Collection Charges Paid On",
                                 "Provision"=>"Commission Payable On",
                                 "Provision"=>"Interest Payable On",
-                                "Provision"=>"Collection Payable On",
+                                // "Provision"=>"Collection Payable On",
                                 "Provision"=>INTEREST_PROVISION_ON,
                                 );
 
@@ -18,26 +18,28 @@ class Model_Schemes_Recurring extends Model_Schemes {
         // FIELDS UPDATION AS PER DDS SCHEME
         $this->getElement("LoanType")->defaultValue(false);
 
-        $this->addCondition('SchemeType','Recurring');
+        $this->addCondition('SchemeType','FixedAndMis');
         $this->addCondition('balance_sheet_id',DEPOSITS_LIABILITIES_ID);
 
     }
 
 
  	function newSchemeForm(&$owner){
-        $owner->add('H3')->set('Add New DDS Scheme');
+        $owner->add('H3')->set('Add New FixedAndMis Scheme');
 		$form = $owner->add('Form');
         $form->addClass('stacked atk-row');
         $form->template->trySet('fieldset','span6');
-        $form->setModel('Schemes_Recurring',array('Name','MinLimit','MaxLimit','balance_sheet_id','Interest','NumberOfPremiums','PremiumMode','MaturityPeriod','SchemePoints','SchemeGroup','ActiveStatus','AccountOpenningCommission','CollectorCommissionRate'));
+        $form->setModel('Schemes_FixedAndMis',array('Name','MinLimit','MaxLimit','balance_sheet_id','Interest','MaturityPeriod','SchemePoints','SchemeGroup','ActiveStatus','AccountOpenningCommission'));
 
-        $form->add('Order')->move($form->addSeparator('span6'),'after','PremiumMode')->now();
+        $form->addField('checkbox','interest_to_another_account');
+
+        $form->add('Order')
+        	->move($form->addSeparator('span6'),'after','MaturityPeriod')
+        	->move('interest_to_another_account','before','SchemePoints')
+        	->now();
 
         $form->addSubmit('Create New Scheme');
-        $form->getElement('PremiumMode')->validateField(function($field) {
-            if($field->get() === null or $field->get() =='')
-               return "Premium Mode must be Specified";
-        });
+       
 
         if($form->isSubmitted()){
             $form->update();
@@ -50,7 +52,7 @@ class Model_Schemes_Recurring extends Model_Schemes {
         $form=$owner->add('Form');
         $form->addClass('stacked atk-row');
         $form->template->trySet('fieldset','span6');
-        $form->setModel($this,array('Name','MinLimit','MaxLimit','Interest','NumberOfPremiums','PremiumMode','balance_sheet_id','MaturityPeriod','SchemePoints','SchemeGroup','ActiveStatus','AccountOpenningCommission','CollectorCommissionRate'));
+        $form->setModel('Schemes_FixedAndMis',array('Name','MinLimit','MaxLimit','balance_sheet_id','Interest','MaturityPeriod','SchemePoints','InterestToAnother','SchemeGroup','ActiveStatus','AccountOpenningCommission'));
         $form->add('Order')->move($form->addSeparator('span6'),'after','AccountOpenningCommission')->now();
 
         $form->addSubmit('Update This Scheme');
