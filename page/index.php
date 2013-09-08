@@ -6,6 +6,10 @@ class page_index extends Page {
 
 		$this->api->menu->generate(array('index'=>'Home','scheme_manage'=>'Schemes'),null,'Home');
 
+		// $this->add('Grid')->addPaginator(10)->setModel('Accounts_Core');
+
+		$this->add('Form')->addField('AccountNumber','ac_num')->validateNotNull()->setModel('Accounts_Core',null,'PersonalDetails');
+
 		// $r = $this->api->db->dsql()->expr('show tables')->get();
   //       foreach ($r as $row){
   //           $table_name = $row['Tables_in_xbank'];
