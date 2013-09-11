@@ -12,42 +12,41 @@ class Model_Accounts_Core extends XModel {
         parent::init();
         
         //HAS ONE BLOCK
-        $this->hasOne("Agents_Core","agents_id");
-        $this->hasOne("Member_Core","member_id");
+        $this->hasOne("Agents","agents_id")->display(array('form'=>'autocomplete/Basic'));
+        $this->hasOne("Member","member_id")->display(array('form'=>'MemberField'))->mandatory(true);
         $this->hasOne("Schemes_Core","schemes_id");
-        $this->hasOne("Branch_Core","branch_id");
-        $this->hasOne("Staff_Core","staff_id");
-        $this->hasOne("Dealer_Core","dealer_id");
-        
+        $this->hasOne("Branch","branch_id")->defaultValue($this->api->auth->model['branch_id']);
+        $this->hasOne("Staff","staff_id")->defaultValue($this->api->auth->model->id);
+        $this->hasOne("Dealer","dealer_id")->display(array('form'=>'autocomplete/Basic'));
+        $this->hasOne('Member','collector_id','Name','Collector')->display(array('form'=>'MemberField'));
+        $this->hasOne('Accounts_SavingAndCurrent','InterestToAccount','AccountNumber');
+        $this->hasOne('Accounts_SavingAndCurrent','CollectorAccountNumber','AccountNumber')->display(array('form'=>'AccountNumber'));        
+        $this->hasOne('Accounts_Core',"LoanAgainstAccount")->display(array('form'=>'AccountNumber'));
 
-		//FIELDS
+        //FIELDS
         $this->addField("OpeningBalanceDr")->type("string");
         $this->addField("OpeningBalanceCr")->type("string");
         $this->addField("ClosingBalance")->type("string");
         $this->addField("CurrentBalanceDr")->type("string");
         $this->addField("CurrentInterest")->type("string");
-        $this->addField("ActiveStatus")->type("boolean");
+        $this->addField("ActiveStatus")->type("boolean")->defaultValue(true);
         $this->addField("Nominee")->type("string");
         $this->addField("NomineeAge")->type("string");
         $this->addField("RelationWithNominee")->type("string");
         $this->addField("MinorNomineeDOB")->type("string");
         $this->addField("MinorNomineeParentName")->type("string");
-        $this->addField("ModeOfOperation")->type("string");
-        $this->addField("DefaultAC")->type("boolean");
-        $this->addField("AccountNumber")->type("string");
-        $this->addField("created_at")->type("datetime");
+        $this->addField("ModeOfOperation")->type("string")->enum(array('Self','Joint','AnyOne','Other'))->defaultValue('Self');
+        $this->addField("DefaultAC")->type("boolean")->defaultValue(0);
+        $this->addField("AccountNumber")->type("string")->mandatory(true);
+        $this->addField("created_at")->type("datetime")->defaultValue($this->api->helper->getNow());
         $this->addField("updated_at")->type("datetime");
         $this->addField("CurrentBalanceCr")->type("string");
-        $this->addField("LastCurrentInterestUpdatedAt")->type("datetime");
-        $this->addField("InterestToAccount")->type("int");
+        $this->addField("LastCurrentInterestUpdatedAt")->type("datetime")->defaultValue($this->api->helper->getNow());
         $this->addField("RdAmount")->type("string");
         $this->addField("LoanInsurranceDate")->type("datetime");
         $this->addField("LockingStatus")->type("boolean");
-        $this->addField("LoanAgainstAccount")->type("int");
         $this->addField("affectsBalanceSheet")->type("boolean");
         $this->addField("MaturedStatus")->type("boolean");
-        $this->addField("collector_id")->type("int");
-        $this->addField("CollectorAccountNumber")->type("string");
         $this->addField("AccountDisplayName")->type("string");
         
 

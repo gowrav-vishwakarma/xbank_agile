@@ -15,7 +15,7 @@ class Model_Dealer_Core extends XModel {
         
 
 		//FIELDS
-        $this->addField("DealerName")->type("string");
+        $this->addField('Name',"DealerName")->type("string");
         $this->addField("Address")->type("string");
         
 

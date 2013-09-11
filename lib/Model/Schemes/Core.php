@@ -18,8 +18,8 @@ class Model_Schemes_Core extends XModel {
 
 		//FIELDS
         $this->addField("Name")->type("string");
-        $this->addField("MinLimit")->type("string");
-        $this->addField("MaxLimit")->type("string");
+        $this->addField("MinLimit")->type("int");
+        $this->addField("MaxLimit")->type("int");
         $this->addField("Interest")->type("string");
         $this->addField("InterestMode")->type("string");
         $this->addField("InterestRateMode")->type("string");
@@ -40,8 +40,8 @@ class Model_Schemes_Core extends XModel {
         $this->addField("MaturityPeriod")->type("int");
         $this->addField("InterestToAnotherAccountPercent")->type("string");
         $this->addField("isDepriciable")->type("string");
-        $this->addField("DepriciationPercentBeforeSep")->type("string");
-        $this->addField("DepriciationPercentAfterSep")->type("string");
+        $this->addField("DepriciationPercentBeforeSep")->type("int");
+        $this->addField("DepriciationPercentAfterSep")->type("int");
         $this->addField("ProcessingFeesinPercent")->type("boolean");
         $this->addField("published")->type("boolean");
         $this->addField("SchemePoints")->type("string");

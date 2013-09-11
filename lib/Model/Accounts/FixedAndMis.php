@@ -5,15 +5,12 @@ class Model_Accounts_FixedAndMis extends Model_Accounts{
 	function init(){
 		parent::init();
 		$this->getElement('schemes_id')->destroy();
-		$this->hasOne('Schemes_DDS','schemes_id')->caption('Accout Under');
-
-		$this->getElement('agents_id')->destroy();
-		$this->hasOne('Agents','agents_id');
+		$this->hasOne('Schemes_DDS','schemes_id')->caption('Account Scheme')->mandatory(true);
 
 		$this->getElement('RdAmount')->destroy();
-		$this->addField('fd_mis_amount','RdAmount');
+		$this->addField('fd_mis_amount','RdAmount')->mandatory(true);
 
-        $account_scheme = $this->join('schemes','schemes_id');
+        $account_scheme = $this->leftJoin('schemes','schemes_id');
         $account_scheme->addField('SchemeType');
         $this->addCondition('SchemeType','FixedAndMis');
 

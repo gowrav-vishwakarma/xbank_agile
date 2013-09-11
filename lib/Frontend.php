@@ -48,6 +48,7 @@ class Frontend extends ApiFrontend {
         $auth->check();
         
         $this->menu=$this->add('MenuManager',null,'Menu');
+        $this->add('H1',null,'logo')->set('Abhinandan');
     }
 
 }

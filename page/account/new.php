@@ -4,7 +4,7 @@ class page_account_new extends Page {
 	function init(){
 		parent::init();
 
-		$this->api->menu->generate(array(),true,"Home/Account/New");
+		$this->api->menu->generate(array(),'index',"Home/Account/New");
 
 		$tabs= $this->add('Tabs');
 		$account_types = explode(',',ACCOUNT_TYPES);
@@ -17,8 +17,8 @@ class page_account_new extends Page {
 				$this->api->db->commit();
 			}catch(Exception $e){
 				$this->api->db->rollback();
-				$this->js()->univ()->errorMessage($e->getMessage())->execute();
 				throw $e;
+				$this->js()->univ()->errorMessage($e->getMessage())->execute();
 			}
 		}
 

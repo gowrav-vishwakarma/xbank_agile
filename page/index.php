@@ -6,9 +6,14 @@ class page_index extends Page {
 
 		$this->api->menu->generate(array('index'=>'Home','scheme_manage'=>'Schemes','account_manage'=>'Accounts'),null,'Home');
 
-		// $this->add('Grid')->addPaginator(10)->setModel('Accounts_Core');
+		$m=$this->add('Model_Member');
+		$m->join('branch','branch_id')->addField('BranchName','Name');
 
-		$this->add('Form')->addField('AccountNumber','ac_num')->validateNotNull()->setModel('Accounts_Core',null,'PersonalDetails');
+    	$m->addExpression('PersonalDetails')->set('CONCAT(Name," ", BranchName)');
+
+		$this->add('Grid')->addPaginator(10)->setModel($m,array('Name','BranchName'));
+
+		// $this->add('Form')->addField('AccountNumber','ac_num')->validateNotNull()->setModel('Accounts_Core',null,'PersonalDetails');
 
 		// $r = $this->api->db->dsql()->expr('show tables')->get();
   //       foreach ($r as $row){

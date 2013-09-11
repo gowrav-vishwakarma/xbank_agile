@@ -5,17 +5,14 @@ class Model_Accounts_Recurring extends Model_Accounts{
 	function init(){
 		parent::init();
 		$this->getElement('schemes_id')->destroy();
-		$this->hasOne('Schemes_DDS','schemes_id')->caption('Account Under');
-
-		$this->getElement('agents_id')->destroy();
-		$this->hasOne('Agents','agents_id');
+		$this->hasOne('Schemes_DDS','schemes_id')->caption('Account Scheme')->mandatory(true);
 
 		$this->getElement('AccountDisplayName')->caption("Account Name");
 
 		$this->getElement('RdAmount')->destroy();
-		$this->addField('recurring_amount','RdAmount');
+		$this->addField('recurring_amount','RdAmount')->mandatory(true);
 
-		$account_scheme = $this->join('schemes','schemes_id');
+		$account_scheme = $this->leftJoin('schemes','schemes_id');
 		$account_scheme->addField('SchemeType');
 		$this->addCondition('SchemeType','Recurring');
 
@@ -33,7 +30,7 @@ class Model_Accounts_Recurring extends Model_Accounts{
         // $form->addField('line','member_id_2')->addComment('TODO LookupDB');
         // $form->addField('line','member_id_3')->addComment('TODO LookupDB');
         $form->add('Order')
-        		->move($form->addSeparator('span6'),'after','agents_id')
+        		->move($form->addSeparator('span6'),'before','recurring_amount')
         		->now();
         
         $form->addSubmit('Create New Account');

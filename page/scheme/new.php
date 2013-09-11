@@ -4,7 +4,7 @@ class page_scheme_new extends Page {
 	function init(){
 		parent::init();
 
-		$this->api->menu->generate(array(),true,"Home/Schemes/New");
+		$this->api->menu->generate(array(),'scheme/manage',"Home/Schemes/New");
 
 		$tabs= $this->add('Tabs');
 		$account_types = explode(',',ACCOUNT_TYPES);

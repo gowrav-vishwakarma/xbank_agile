@@ -4,7 +4,7 @@
 class page_account_manage extends Page {
 	function page_index(){
 
-		$this->api->menu->generate(array('account_new'=>'New Account'),true,"Home/Accounts");
+		$this->api->menu->generate(array('account_new'=>'New Account'),'account/manage',"Home/Accounts");
 
 		$grid = $this->add('Grid');
 		$sc=$this->add('Model_Accounts_Core');

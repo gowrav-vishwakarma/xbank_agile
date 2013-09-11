@@ -3,7 +3,7 @@
 class page_scheme_manage extends Page {
 	function page_index(){
 
-		$this->api->menu->generate(array('scheme_new'=>'New Scheme'),true,"Home/Schemes");
+		$this->api->menu->generate(array('scheme_new'=>'New Scheme'),'index',"Home/Schemes");
 
 		$grid = $this->add('Grid');
 		$sc=$this->add('Model_Schemes_Core');
